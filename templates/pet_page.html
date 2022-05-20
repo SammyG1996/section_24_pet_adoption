@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row m-2">
+
+  <div class="col-12 col-md-4 d-flex justify-content-center">
+
+   
+      <div class="card m-1 mb-3" style="width: 80%;">
+        <img src={{pet.photo_url}} class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{pet.name}} </h5>
+          <p>Species: {{pet.species}}</p>
+          <p>Age: {{pet.age}}</p>
+          <p>{{pet.notes}}</p>
+          {% if pet.available == True %}
+            <a href="/"" class="btn btn-success">I'm Available!</a>
+          {% else %}
+            <a href="/"" class="btn btn-warning">Sorry! I'm Taken</a>
+          {% endif %}
+        </div>
+      </div>
+  
+
+  </div>
+  <!-- Change this to have user Card show on Left hand side and posts show on the right -->
+  <div class="col-12 col-md-8 d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
+      <form action="" method="POST">
+        {{ form.hidden_tag()}} <!--add type=hidden form fields -->
+  
+        {% for field in form
+           if field.widget.input_type != 'hidden' %}
+  
+           <p>
+            {{ field.label }}
+            {{ field }}
+      
+            {% for error in field.errors %}
+              {{ error }}
+            {% endfor %}
+          </p>
+        
+        {% endfor %}
+        <button type="submit">submit</button>
+      </form>
+    </div>
+  </div>
+
+  
+</div>
+
+{% endblock %}
